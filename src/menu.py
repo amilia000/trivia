@@ -1,7 +1,8 @@
-from quiz_data import questions, high_scores, start_quiz, view_scores
+from quiz_data import start_quiz, questions, high_scores, load_high_scores, view_scores
 
 
 def show_menu():
+    load_high_scores()
     while True:
         print("\nMenu:\n")
         print("1. Start Quiz")

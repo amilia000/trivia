@@ -1,3 +1,4 @@
+import json
 import datetime
 
 questions = [
@@ -23,6 +24,21 @@ questions = [
     },
 ]
 high_scores = []
+scores_file = "high_scores.json"
+
+
+def load_high_scores():
+    try:
+        with open(scores_file) as file:
+            # adds the loaded entries into the existing high_scores list.
+            high_scores.extend(json.load(file))
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass  # no file yet (or it's empty), so start with no scores
+
+
+def save_high_scores():
+    with open(scores_file, "w") as file:
+        json.dump(high_scores, file)
 
 
 def start_quiz():
@@ -66,6 +82,7 @@ def start_quiz():
     name = input("Enter your name: ").strip()
     # .append puts a new item at the end of a list.
     high_scores.append({"name": name, "score": percent, "date": today})
+    save_high_scores()
 
 
 def view_scores():
